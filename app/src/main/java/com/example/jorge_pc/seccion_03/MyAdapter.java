@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -49,12 +51,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView TextViewName;
+        public TextView textViewName;
         public ImageView imageViewPoster;
         public ViewHolder(View itemView) {
             super(itemView);
+            textViewName=(TextView) itemView.findViewById(R.id.textViewTitle);
+            imageViewPoster=(ImageView) itemView.findViewById(R.id.imageViewPoster);
         }
         public void bind(final Movie movie,final OnItemClickListener listener){
+
+            textViewName.setText(movie.getName());
+            imageViewPoster.setImageResource(movie.getPoster());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

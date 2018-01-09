@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter= new MyAdapter(movies, R.layout.reycler_view_item, new MyAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(String name, int position) {
+            public void onItemClick(Movie movie, int position) {
                 //Toast.makeText(MainActivity.this,name+"-"+position,Toast.LENGTH_LONG).show();
                // deleteName(position);
             }
