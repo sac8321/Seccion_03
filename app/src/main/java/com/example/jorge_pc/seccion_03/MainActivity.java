@@ -3,8 +3,10 @@ package com.example.jorge_pc.seccion_03;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -14,7 +16,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<String> names;
+    private List<Movie> movies;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -25,20 +27,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        names=this.getAllNames();
+        movies=this.getAllMovies();
         mRecyclerView=(RecyclerView) findViewById(R.id.recycler_view);
         mLayoutManager=new LinearLayoutManager(this);
+        mLayoutManager=new GridLayoutManager(this,2);
+        mLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
 
-        mAdapter= new MyAdapter(names, R.layout.reycler_view_item, new MyAdapter.OnItemClickListener() {
+        mAdapter= new MyAdapter(movies, R.layout.reycler_view_item, new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(String name, int position) {
                 //Toast.makeText(MainActivity.this,name+"-"+position,Toast.LENGTH_LONG).show();
-                deleteName(position);
+               // deleteName(position);
             }
         });
 
         //performance
-        mRecyclerView.setHasFixedSize(true);
+        //mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.add_name:
-                this.addName(0);
+             //   this.addName(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -67,29 +71,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void addName(int position) {
-        names.add(position,"New name"+(++counter));
-        mAdapter.notifyItemInserted(position);
-        mLayoutManager.scrollToPosition(position);
-    }
+//    private void addName(int position) {
+//        names.add(position,"New name"+(++counter));
+//        mAdapter.notifyItemInserted(position);
+//        mLayoutManager.scrollToPosition(position);
+//    }
+//
+//    private void deleteName(int position){
+//        names.remove(position);
+//        mAdapter.notifyItemRemoved(position);
+//
+//
+//    }
 
-    private void deleteName(int position){
-        names.remove(position);
-        mAdapter.notifyItemRemoved(position);
-
-
-    }
-
-    private List<String> getAllNames(){
-        return new ArrayList<String>(){{
-            add("Juan");
-            add("Jorge");
-            add("Jose");
-            add("Magaly");
-            add("Monica");
-            add("Andrea");
-            add("Julio");
-
+    private List<Movie> getAllMovies(){
+        return new ArrayList<Movie>(){{
+            add(new Movie("Peli 1",R.drawable.carro1));
+            add(new Movie("Peli 2",R.drawable.carro2));
+            add(new Movie("Peli 3",R.drawable.carro3));
+            add(new Movie("Peli 4",R.drawable.carro4));
         }};
     }
 }
